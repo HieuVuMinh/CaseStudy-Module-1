@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="docReady(); docReady1()">
+<div>
+    <canvas id="myCanvas" width="1520px" height="700" style="border: solid 1px #d3d3d3"></canvas>
+</div>
+
+<script>
+    //test
+    let game = "start";
+    let frame = 0;
+
+
+    // Background
+    class bg {
+        sX;
+        sY;
+        sW;
+        sH;
+        cX;
+        cY;
+        cW;
+        cH;
+
+        constructor(sX, sY, sW, sH, cX, cY, cW, cH) {
+            this.sX = sX;
+            this.sY = sY;
+            this.sW = sW;
+            this.sH = sH;
+            this.cX = cX;
+            this.cY = cY;
+            this.cW = cW;
+            this.cH = cH;
+        }
+
+        draw() {
+            let image = new Image(128, 96);
+            image.src = "109-Ad-Shadow01.png"
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX, this.cY, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 100, this.cY, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 200, this.cY, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 400, this.cY, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 600, this.cY, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 800, this.cY, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1000, this.cY, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1200, this.cY, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1400, this.cY, this.cW, this.cH)
+
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX, this.cY + 200, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 100, this.cY + 200, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 200, this.cY + 200, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 400, this.cY + 200, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 600, this.cY + 200, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 800, this.cY + 200, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1000, this.cY + 200, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1200, this.cY + 200, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1400, this.cY + 200, this.cW, this.cH)
+
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX, this.cY + 400, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 100, this.cY + 400, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 200, this.cY + 400, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 400, this.cY + 400, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 600, this.cY + 400, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 800, this.cY + 400, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1000, this.cY + 400, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1200, this.cY + 400, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1400, this.cY + 400, this.cW, this.cH)
+
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX, this.cY + 600, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 100, this.cY + 600, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 200, this.cY + 600, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 400, this.cY + 600, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 600, this.cY + 600, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 800, this.cY + 600, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1000, this.cY + 600, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1200, this.cY + 600, this.cW, this.cH)
+            ctx.drawImage(image, this.sX, this.sY, this.sW, this.sH, this.cX + 1400, this.cY + 600, this.cW, this.cH)
+        }
+    }
+// Lớp Dragon
+    class Dragon {
+        image;
+        cX;
+        cY;
+        constructor(cX, cY) {
+            this.cX = cX;
+            this.cY = cY;
+            this.animateDragon = [
+                {sX: 96, sY: 0},
+                {sX: 192, sY: 0},
+                {sX: 288, sY: 0}
+            ]
+            this.sW = 96;
+            this.sH = 96;
+            this.cW = 96;
+            this.cH = 96;
+            this.i = 0;
+        }
+        drawCharacterDragon(src) {
+            ctx.beginPath();
+            this.image = new Image(96, 96);
+            this.image.src = src
+            if (game == "start") {
+                if (frame % 16 == 0) {
+                    this.i++;
+                    if (this.i > 2) {
+                        this.i = 0;
+                    }
+                }
+            }
+            ctx.drawImage(this.image, this.animateDragon[this.i].sX, this.animateDragon[this.i].sY, this.sW, this.sH,
+                this.cX, this.cY, this.cW, this.cH)
+        }
+    }
+
+// Lớp Vampire
+    class Vampire {
+        image;
+        cX;
+        cY;
+        constructor(cX, cY) {
+            this.cX = cX;
+            this.cY = cY;
+            this.animateVampire = [
+                {sX:48, sY: 0},
+                {sX:96, sY: 0},
+                {sX:144, sY: 0},
+                {sX:48, sY: 48},
+                {sX:96, sY: 48},
+                {sX:144, sY: 48},
+                {sX:48, sY: 96},
+                {sX:96, sY: 96},
+                {sX:144, sY: 96},
+                {sX: 48, sY: 144},
+                {sX: 96, sY: 144},
+                {sX: 144, sY: 144},
+                {sX: 192, sY: 144},
+            ]
+            this.sW = 48;
+            this.sH = 48;
+            this.cW = 80;
+            this.cH = 80;
+            this.i = 0;
+        }
+        drawCharacterVampire(src) {
+            ctx.beginPath();
+            this.image = new Image(48, 48);
+            this.image.src = src
+            if (game == "start") {
+                if (frame % 10 == 0) {
+                    this.i++;
+                    if (this.i > 11) {
+                        this.i = 0;
+                    }
+                }
+            }
+            ctx.drawImage(this.image, this.animateVampire[this.i].sX, this.animateVampire[this.i].sY, this.sW, this.sH,
+                this.cX, this.cY, this.cW, this.cH)
+        }
+    }
+
+// lớp Character
+    class Character {
+        image;
+        cX;
+        cY;
+
+        constructor(cX, cY) {
+            this.cX = cX;
+            this.cY = cY;
+            this.animateDown = [
+                {sX: 32, sY: 0},
+                {sX: 64, sY: 0},
+                {sX: 96, sY: 0}
+            ]
+            this.animateUp = [
+                {sX: 32, sY: 144},
+                {sX: 64, sY: 144},
+                {sX: 96, sY: 144}
+            ]
+            this.animateRight = [
+                {sX: 32, sY: 96},
+                {sX: 64, sY: 96},
+                {sX: 96, sY: 96}
+            ]
+            this.animateLeft = [
+                {sX: 32, sY: 48},
+                {sX: 64, sY: 48},
+                {sX: 96, sY: 48}
+            ]
+            this.sW = 32;
+            this.sH = 48;
+            this.cW = 32;
+            this.cH = 48;
+            this.speed = 10;
+            this.i = 0;
+
+        }
+// Hiệu ứng đi xuống
+        drawCharacterDown(src) {
+            ctx.beginPath();
+            this.image = new Image(32, 48);
+            this.image.src = src
+            if (game == "start") {
+                if (frame % 16 == 0) {
+                    this.i++;
+                    if (this.i > 2) {
+                        this.i = 0;
+                    }
+                }
+            }
+            ctx.drawImage(this.image, this.animateDown[this.i].sX, this.animateDown[this.i].sY, this.sW, this.sH,
+                this.cX, this.cY, this.cW, this.cH)
+        }
+
+// Hiệu ứng đi lên
+        drawCharacterUp(src) {
+            ctx.beginPath();
+            this.image = new Image(32, 48);
+            this.image.src = src
+            if (game == "start") {
+                if (frame % 16 == 0) {
+                    this.i++;
+                    if (this.i > 2) {
+                        this.i = 0;
+                    }
+                }
+            }
+            ctx.drawImage(this.image, this.animateUp[this.i].sX, this.animateUp[this.i].sY, this.sW, this.sH,
+                this.cX, this.cY, this.cW, this.cH)
+        }
+
+// Hiệu ứng đi sang phải
+        drawCharacterRight(src) {
+            ctx.beginPath();
+            this.image = new Image(32, 48);
+            this.image.src = src
+            if (game == "start") {
+                if (frame % 16 == 0) {
+                    this.i++;
+                    if (this.i > 2) {
+                        this.i = 0;
+                    }
+                }
+            }
+            ctx.drawImage(this.image, this.animateRight[this.i].sX, this.animateRight[this.i].sY, this.sW, this.sH,
+                this.cX, this.cY, this.cW, this.cH)
+        }
+
+// Hiệu ứng đi sang trái
+        drawCharacterLeft(src) {
+            ctx.beginPath();
+            this.image = new Image(32, 48);
+            this.image.src = src
+            if (game == "start") {
+                if (frame % 16 == 0) {
+                    this.i++;
+                    if (this.i > 2) {
+                        this.i = 0;
+                    }
+                }
+            }
+            ctx.drawImage(this.image, this.animateLeft[this.i].sX, this.animateLeft[this.i].sY, this.sW, this.sH,
+                this.cX, this.cY, this.cW, this.cH)
+        }
+
+        moveRight() {
+            this.cX += this.speed;
+        }
+
+        moveLeft() {
+            this.cX -= this.speed;
+        }
+
+        moveUp() {
+            this.cY -= this.speed;
+        }
+
+        moveDown() {
+            this.cY += this.speed;
+        }
+    }
+
+    //test
+    // Lớp The Evil
+    class TheEvil {
+        image;
+        cX;
+        cY;
+
+        constructor(cX, cY) {
+            this.cX = cX;
+            this.cY = cY;
+            this.animate = [
+                {sX: 69, sY: 0},
+                {sX: 138, sY: 0},
+                {sX: 207, sY: 0}
+            ]
+            this.sW = 69;
+            this.sH = 80;
+            this.cW = 69;
+            this.cH = 80;
+            this.speed = 20;
+            this.i = 0;
+        }
+
+        drawTheEvil(src) {
+            ctx.beginPath();
+            this.image = new Image(69, 80);
+            this.image.src = src
+            if (game == "start") {
+                if (frame % 16 == 0) {
+                    this.i++;
+                    if (this.i > 2) {
+                        this.i = 0;
+                    }
+                }
+            }
+            ctx.drawImage(this.image, this.animate[this.i].sX, this.animate[this.i].sY, this.sW, this.sH,
+                this.cX, this.cY, this.cW, this.cH)
+        }
+
+        moveRight1() {
+            this.cX += this.speed;
+        }
+
+        moveLeft1() {
+            this.cX -= this.speed;
+        }
+
+        moveUp1() {
+            this.cY -= this.speed;
+        }
+
+        moveDown1() {
+            this.cY += this.speed;
+        }
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        frame++;
+        Draw.draw();
+        // DrawCharacter.drawCharacterDown("455-Other03.png");
+        // DrawTheEvil.drawTheEvil("1187-Azastral01.png");
+        // DrawDragon.drawCharacterDragon("420-Monster23.png");
+        // DrawVampire.drawCharacterVampire("Vampire.png");
+    }
+
+    // Khởi tạo đối tượng Back ground
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    let Draw = new bg(0, 0, 96, 128, 0, 0, 200, 200)
+    Draw.draw();
+
+    // Khởi tạo đối tượng Character
+    let DrawCharacter = new Character(0, 0)
+
+    // Khởi tạo đối tượng The Evil
+    let DrawTheEvil = new TheEvil(0, 0);
+
+    // khởi tạo đối tượng Dragon
+    let DrawDragon = new Dragon(500, 500)
+
+    // khởi tạo đối tượng Vampire
+    let DrawVampire = new Vampire(500, 200)
+
+    // Di chuyển đối tượng The Evil
+    // Phải
+    function moveRight1() {
+        DrawTheEvil.sX = 0;
+        DrawTheEvil.sY = 0;
+        DrawTheEvil.sW = 69;
+        DrawTheEvil.sH = 80;
+
+        DrawTheEvil.moveRight1();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Draw.draw();
+        DrawTheEvil.drawTheEvil("1187-Azastral01.png");
+    }
+
+    // Trái
+    function moveLeft1() {
+        DrawTheEvil.sX = 0;
+        DrawTheEvil.sY = 0;
+        DrawTheEvil.sW = 69;
+        DrawTheEvil.sH = 80;
+
+        DrawTheEvil.moveLeft1();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Draw.draw();
+        DrawTheEvil.drawTheEvil("1187-Azastral01.png");
+    }
+
+    // Lên
+    function moveUp1() {
+        DrawTheEvil.sX = 0;
+        DrawTheEvil.sY = 0;
+        DrawTheEvil.sW = 69;
+        DrawTheEvil.sH = 80;
+
+        DrawTheEvil.moveUp1();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Draw.draw();
+        DrawTheEvil.drawTheEvil("1187-Azastral01.png");
+    }
+
+    // Xuống
+    function moveDown1() {
+        DrawTheEvil.sX = 0;
+        DrawTheEvil.sY = 0;
+        DrawTheEvil.sW = 69;
+        DrawTheEvil.sH = 80;
+
+        DrawTheEvil.moveDown1();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Draw.draw();
+        DrawTheEvil.drawTheEvil("1187-Azastral01.png");
+    }
+
+    // Di chuyển đối tượng Character
+    // Phải
+    function moveRight() {
+        DrawCharacter.moveRight();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Draw.draw();
+        DrawCharacter.drawCharacterRight("455-Other03.png");
+    }
+
+    // Trái
+    function moveLeft() {
+        DrawCharacter.moveLeft();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Draw.draw();
+        DrawCharacter.drawCharacterLeft("455-Other03.png")
+    }
+
+    // Lên
+    function moveUp() {
+        DrawCharacter.moveUp();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Draw.draw();
+        DrawCharacter.drawCharacterUp("455-Other03.png")
+    }
+
+    // Xuống
+    function moveDown() {
+        DrawCharacter.moveDown();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        Draw.draw();
+        DrawCharacter.drawCharacterDown("455-Other03.png");
+    }
+
+    // function nhận bàn phím The Charater
+    function moveSelection(evt) {
+        switch (evt.keyCode) {
+            case 37:
+                moveLeft();
+                break;
+            case 39:
+                moveRight();
+                break;
+            case 38:
+                moveUp();
+                break;
+            case 40:
+                moveDown();
+                break;
+        }
+    }
+
+    // function nhận bàn phím The Evil
+    function moveSelection1(evt) {
+        switch (evt.keyCode) {
+            case 65:
+                moveLeft1();
+                break;
+            case 68:
+                moveRight1();
+                break;
+            case 87:
+                moveUp1();
+                break;
+            case 83:
+                moveDown1();
+                break;
+        }
+    }
+
+    function docReady() {
+        window.addEventListener('keydown', moveSelection);
+    }
+
+    function docReady1() {
+        window.addEventListener('keydown', moveSelection1);
+    }
+
+    animate()
+</script>
+</body>
+</html>
