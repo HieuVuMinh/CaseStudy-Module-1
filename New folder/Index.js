@@ -4,10 +4,10 @@ var ctx = canvas.getContext('2d');
 canvas.width = 1018;
 canvas.height = 767;
 
-
+let game = 'ready';
 let score = 0;
 let gameFrame = 0;
-ctx.font = '25px Georgia';
+ctx.font = '25px Geneva';
 let gameSpeed = 1;
 let gameOver = false;
 
@@ -35,11 +35,10 @@ class Hero {
         this.x = canvas.width;
         this.y = canvas.height / 2;
         this.radius = 25;
-        this.angle = 0;
         this.frameX = 0;
         this.frameY = 0;
-        this.spritwidth = 32;
-        this.spritheight = 48;
+        this.width = 32;
+        this.height = 48;
     }
 
     update() {
@@ -68,21 +67,21 @@ class Hero {
         // ctx.closePath();
 
         if (this.x >= mouse.x) {
-            ctx.drawImage(theHero, this.frameX * this.spritwidth, this.spritheight,
-                this.spritwidth, this.spritheight, this.x - 16, this.y - 25, this.spritwidth * 1.1,
-                this.spritheight * 1.1);
+            ctx.drawImage(theHero, this.frameX * this.width, this.height,
+                this.width, this.height, this.x - 16, this.y - 25, this.width * 1.1,
+                this.height * 1.1);
         } else if (this.x <= mouse.x) {
-            ctx.drawImage(theHero, this.frameX * this.spritwidth, this.spritheight * 2,
-                this.spritwidth, this.spritheight, this.x - 16, this.y - 25, this.spritwidth * 1.1,
-                this.spritheight * 1.1);
+            ctx.drawImage(theHero, this.frameX * this.width, this.height * 2,
+                this.width, this.height, this.x - 16, this.y - 25, this.width * 1.1,
+                this.height * 1.1);
         }//  else if (this.y <= mouse.y) {
-        //     ctx.drawImage(theHero, this.frameY * this.spritwidth, this.spritheight * 3,
-        //         this.spritwidth, this.spritheight, this.x - 16, this.y - 25, this.spritwidth * 2,
-        //         this.spritheight * 2);
+        //     ctx.drawImage(theHero, this.frameY * this.width, this.height * 3,
+        //         this.width, this.height, this.x - 16, this.y - 25, this.width * 2,
+        //         this.height * 2);
         // } else if (this.y <= mouse.y) {
-        //     ctx.drawImage(theHero, this.frameY * this.spritwidth, this.spritheight * 4,
-        //         this.spritwidth, this.spritheight, this.x - 16, this.y - 25, this.spritwidth * 2,
-        //         this.spritheight * 2);
+        //     ctx.drawImage(theHero, this.frameY * this.width, this.height * 4,
+        //         this.width, this.height, this.x - 16, this.y - 25, this.width * 2,
+        //         this.height * 2);
         // }
 
     }
@@ -136,6 +135,8 @@ var soundNpc3 = document.createElement('audio');
 soundNpc3.src = '002-Defeat.ogg';
 var soundNpc4 = document.createElement('audio');
 soundNpc4.src = "Protect_Overdrive.mp3";
+var soundNpc5 = document.createElement('audio');
+soundNpc5.src = "Hills_of_Promising_Adventures.ogg";
 
 // Nhân vật NPC
 function handleNpc() {
@@ -192,12 +193,31 @@ function handleNpc1() {
     }
 }
 
-//Background
-var background = new Image();
-background.src = 'Wild01-Recovered.png';
+// Start game
+canvas.addEventListener('click', function (){
+    switch (game){
+        case "ready":
+            game = 'play'
+            break;
+        case "play":
+            console.log("play")
+            break;
+    }
+})
 
-function handleBackground() {
-    ctx.drawImage(background, 0, 0, 1018, 767, 0, 0, canvas.width, canvas.height);
+//Background Start
+var backgroundstart = new Image();
+backgroundstart.src = 'Wild01-Recovered Peace.png';
+
+function handleBackgroundstart() {
+    ctx.drawImage(backgroundstart, 0, 0, 1018, 767, 0, 0, canvas.width, canvas.height);
+}
+//Background Play
+var backgroundplay = new Image();
+backgroundplay.src = 'Wild01-Recovered.png';
+
+function handleBackgroundplay() {
+    ctx.drawImage(backgroundplay, 0, 0, 1018, 767, 0, 0, canvas.width, canvas.height);
 }
 
 // Cloud
@@ -218,7 +238,6 @@ function handleBackground1() {
     if (BG.x2 < -BG.width) BG.x2 = BG.width;
     ctx.drawImage(cloud, BG.x1, BG.y, BG.width, BG.height);
     ctx.drawImage(cloud, BG.x2, BG.y, BG.width, BG.height);
-
 }
 
 // Enemies
@@ -234,8 +253,8 @@ class Enemy {
         this.frame = 0;
         this.frameX = 0;
         this.frameY = 0;
-        this.spriteWidth = 96;
-        this.spriteHeight = 96;
+        this.width = 96;
+        this.height = 96;
     }
 
     draw() {
@@ -243,8 +262,8 @@ class Enemy {
         // ctx.beginPath();
         // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         // ctx.fill();
-        ctx.drawImage(enemyImage, this.frameX * this.spriteWidth, this.spriteHeight,
-            this.spriteWidth, this.spriteHeight, this.x - 85, this.y - 85, this.radius * 3, this.radius * 3);
+        ctx.drawImage(enemyImage, this.frameX * this.width, this.height,
+            this.width, this.height, this.x - 85, this.y - 85, this.radius * 3, this.radius * 3);
     }
 
     update() {
@@ -305,28 +324,34 @@ function handleGameOver() {
 
 // Animation loop
 function animate() {
-    soundNpc4.play();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    handleNpc();
-    handleNpc1();
-    player.update();
-    player.draw();
-    handleBackground();
-    handleBackground1()
-    handleEnemies1();
-    if (score >= 2) {
+    if (game == 'ready'){
+        soundNpc5.play();
+        handleBackgroundstart();
+    } else if (game == 'play'){
+        soundNpc5.pause();
+        soundNpc4.play();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        handleNpc();
+        handleNpc1();
+        player.update();
+        player.draw();
+        handleBackgroundplay();
+        handleBackground1()
         handleEnemies1();
-        handleEnemies2();
+        if (score >= 10) {
+            handleEnemies1();
+            handleEnemies2();
+        }
+        if (score >= 30) {
+            handleEnemies1();
+            handleEnemies2();
+            handleEnemies3();
+        }
+        ctx.fillStyle = 'white';
+        ctx.fillText('Score: ' + score, 30, 30);
+        gameFrame++;
+
     }
-    if (score >= 5) {
-        handleEnemies1();
-        handleEnemies2();
-        handleEnemies3();
-    }
-    ctx.fillStyle = 'white';
-    ctx.fillText('Score: ' + score, 10, 30);
-    gameFrame++;
-    console.log(gameFrame)
     if (!gameOver) requestAnimationFrame(animate);
 }
 
