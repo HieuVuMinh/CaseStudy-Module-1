@@ -299,13 +299,13 @@ function handleGameOver() {
     ctx.fillStyle = 'red';
     ctx.fillText('GAME OVER', 350, 350);
     gameOver = true;
-    // soundNpc4.pause();
-    // soundNpc3.play();
+    soundNpc4.pause();
+    soundNpc3.play();
 }
 
 // Animation loop
 function animate() {
-    // soundNpc4.play();
+    soundNpc4.play();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     handleNpc();
     handleNpc1();
