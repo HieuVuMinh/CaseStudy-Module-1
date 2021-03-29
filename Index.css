@@ -15,8 +15,8 @@ body{
 }
 .grass {
     position: absolute;
-    left: -200%;
-    top: -200%;
+    left: -100%;
+    top: -100%;
     width: 500%;
     height: 500%;
     background: url("Shadow01.png");

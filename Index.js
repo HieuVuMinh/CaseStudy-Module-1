@@ -7,7 +7,7 @@ canvas.height = 767;
 let game = 'ready';
 let score = 0;
 let gameFrame = 0;
-ctx.font = '25px Geneva';
+ctx.font = '50px Geneva';
 let gameSpeed = 1;
 let gameOver = false;
 
@@ -47,10 +47,10 @@ class Hero {
         var dx = this.x - mouse.x;
         var dy = this.y - mouse.y;
         if (mouse.x != this.x) {
-            this.x -= dx / 10;
+            this.x -= dx / 5;
         }
         if (mouse.y != this.y) {
-            this.y -= dy / 10;
+            this.y -= dy / 5;
         }
     }
 
@@ -89,7 +89,7 @@ class Hero {
 
     }
 }
-
+// Khởi tạo nhân vật Hero
 var player = new Hero();
 
 // NPC
@@ -103,11 +103,9 @@ NpcImage1.src = 'Nun02.png';
 class Npc {
     constructor() {
         this.x = Math.random() * canvas.width;
-        this.y = canvas.height;
+        this.y = canvas.height ;
         this.radius = 15;
-        this.speed = Math.random() * 5 + 1;
-        this.counted = false;
-        this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2';
+        this.speed = (Math.random() * 5) + 1;
     }
 
     update() {
@@ -118,12 +116,6 @@ class Npc {
     }
 
     draw(image) {
-        // ctx.fillStyle = 'red';
-        // ctx.beginPath();
-        // ctx.arc(this.x, this.y, this.radius, 0,Math.PI * 2);
-        // ctx.fill();
-        // ctx.closePath();
-        // ctx.stroke();
         ctx.drawImage(image, this.x - 20, this.y - 23, this.radius * 2, this.radius * 3)
     }
 }
@@ -137,21 +129,13 @@ function handleNpc() {
         NpcArray[i].update();
         NpcArray[i].draw(NpcImage);
 
-        if (NpcArray[i].y < 0 - NpcArray[i].radius * 2) {
+        if (NpcArray[i].y < NpcArray[i].radius * 2) {
             NpcArray.splice(i, 1);
             i--;
         } else if (NpcArray[i].distance < NpcArray[i].radius + player.radius) {
-            if (!NpcArray[i].counted) {
-                if (NpcArray[i].sound == 'sound1') {
-                    // soundNpc1.play();
-                } else {
-                    // soundNpc2.play();
-                }
                 score++;
-                NpcArray[i].counted = true;
                 NpcArray.splice(i, 1);
                 i--;
-            }
         }
     }
 }
@@ -168,17 +152,9 @@ function handleNpc1() {
             NpcArray1.splice(i, 1);
             i--;
         } else if (NpcArray1[i].distance < NpcArray1[i].radius + player.radius) {
-            if (!NpcArray1[i].counted) {
-                if (NpcArray1[i].sound == 'sound1') {
-                    // soundNpc1.play();
-                } else {
-                    // soundNpc2.play();
-                }
                 score++;
-                NpcArray1[i].counted = true;
                 NpcArray1.splice(i, 1);
                 i--;
-            }
         }
     }
 }
@@ -249,7 +225,7 @@ enemyImage.src = 'Dragon.png';
 
 class Enemy {
     constructor() {
-        this.x = canvas.width + 200;
+        this.x = canvas.width
         this.y = Math.random() * (canvas.height - 150) + 90;
         this.radius = 60;
         this.speed = Math.random() * 2 + 5;
@@ -351,8 +327,8 @@ function animate() {
             handleEnemies2();
             handleEnemies3();
         }
-        ctx.fillStyle = 'white';
-        ctx.fillText('Score: ' + score, 30, 30);
+        ctx.fillStyle = 'red';
+        ctx.fillText('Score: ' + score, 30, 40);
         gameFrame++;
 
     }
