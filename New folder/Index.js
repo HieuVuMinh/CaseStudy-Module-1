@@ -12,10 +12,12 @@ let gameSpeed = 1;
 let gameOver = false;
 
 // Di chuyển chuột
+
+// trả về giá trị khoảng cách từ top, bottom, right, left đến canvas
 let canvasPosition = canvas.getBoundingClientRect();
 var mouse = {
-    x: canvas.width / 2,
-    y: canvas.height / 2,
+    x: 0,
+    y: 0,
     click: false
 }
 canvas.addEventListener('mousedown', function (event) {
@@ -33,7 +35,7 @@ theHero.src = '455-Other03.png';
 class Hero {
     constructor() {
         this.x = canvas.width;
-        this.y = canvas.height / 2;
+        this.y = canvas.height;
         this.radius = 25;
         this.frameX = 0;
         this.frameY = 0;
@@ -53,13 +55,14 @@ class Hero {
     }
 
     draw() {
-        if (mouse.click) {
-            ctx.lineWidth = 0.001;
-            ctx.beginPath();
-            ctx.moveTo(this.x, this.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
-        }
+        // if (mouse.click) {
+        //     ctx.lineWidth = 0.001;
+        //     ctx.beginPath();
+        //     ctx.moveTo(this.x, this.y);
+        //     ctx.lineTo(mouse.x, mouse.y);
+        //     ctx.stroke();
+        // }
+
         // ctx.fillStyle = 'black';
         // ctx.beginPath();
         // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -100,10 +103,9 @@ NpcImage1.src = 'Nun02.png';
 class Npc {
     constructor() {
         this.x = Math.random() * canvas.width;
-        this.y = canvas.height + 100;
+        this.y = canvas.height;
         this.radius = 15;
         this.speed = Math.random() * 5 + 1;
-        this.distance;
         this.counted = false;
         this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2';
     }
@@ -125,18 +127,6 @@ class Npc {
         ctx.drawImage(image, this.x - 20, this.y - 23, this.radius * 2, this.radius * 3)
     }
 }
-
-// Nhạc
-var soundNpc1 = document.createElement('audio');
-soundNpc1.src = '005-Discovery.ogg';
-var soundNpc2 = document.createElement('audio');
-soundNpc2.src = '004-Treasure.ogg';
-var soundNpc3 = document.createElement('audio');
-soundNpc3.src = '002-Defeat.ogg';
-var soundNpc4 = document.createElement('audio');
-soundNpc4.src = "Protect_Overdrive.mp3";
-var soundNpc5 = document.createElement('audio');
-soundNpc5.src = "Hills_of_Promising_Adventures.ogg";
 
 // Nhân vật NPC
 function handleNpc() {
@@ -192,6 +182,19 @@ function handleNpc1() {
         }
     }
 }
+
+// Nhạc
+var soundNpc1 = document.createElement('audio');
+soundNpc1.src = '005-Discovery.ogg';
+var soundNpc2 = document.createElement('audio');
+soundNpc2.src = '004-Treasure.ogg';
+var soundNpc3 = document.createElement('audio');
+soundNpc3.src = '002-Defeat.ogg';
+var soundNpc4 = document.createElement('audio');
+soundNpc4.src = "Protect_Overdrive.mp3";
+var soundNpc5 = document.createElement('audio');
+soundNpc5.src = "Hills_of_Promising_Adventures.ogg";
+
 
 // Start game
 canvas.addEventListener('click', function (){
@@ -324,8 +327,8 @@ function handleGameOver() {
 
 // Animation loop
 function animate() {
+    soundNpc5.play();
     if (game == 'ready'){
-        soundNpc5.play();
         handleBackgroundstart();
     } else if (game == 'play'){
         soundNpc5.pause();

@@ -4,14 +4,16 @@
     box-sizing: border-box;
 }
 body{
-    position: absolute;
     width: 100vw;
     height: 100vh;
+     /*hiển thị các khối theo chiều ngang*/
     display: flex;
+    /*để sử dụng justify-content phải khai báo display flex*/
     justify-content: center;
+    /*xóa đi mọi thứ tràn khỏi viền*/
     overflow: hidden;
 }
-.floor {
+.grass {
     position: absolute;
     left: -200%;
     top: -200%;
@@ -25,5 +27,4 @@ body{
     width: 1018px;
     height: 767px;
     /*border: 2px solid black;*/
-    /*background: linear-gradient(to top, darkgray, darkgrey, black);*/
 }
