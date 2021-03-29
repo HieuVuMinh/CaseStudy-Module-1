@@ -15,10 +15,10 @@ body{
 }
 .grass {
     position: absolute;
-    left: -100%;
-    top: -100%;
-    width: 500%;
-    height: 500%;
+    left: -10%;
+    top: -50%;
+    width: 150%;
+    height:250%;
     background: url("Shadow01.png");
     transform: rotate3d(1, 0, 1, 50deg);
 }
@@ -26,5 +26,6 @@ body{
     position: absolute;
     width: 1018px;
     height: 767px;
+
     /*border: 2px solid black;*/
 }

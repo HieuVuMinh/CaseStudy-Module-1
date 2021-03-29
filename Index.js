@@ -3,11 +3,11 @@ var canvas = document.getElementById('canvas1');
 var ctx = canvas.getContext('2d');
 canvas.width = 1018;
 canvas.height = 767;
+ctx.font = '50px Geneva';
 
 let game = 'ready';
 let score = 0;
 let gameFrame = 0;
-ctx.font = '50px Geneva';
 let gameSpeed = 1;
 let gameOver = false;
 
@@ -25,9 +25,7 @@ canvas.addEventListener('mousedown', function (event) {
     mouse.x = event.x - canvasPosition.left;
     mouse.y = event.y - canvasPosition.top;
 });
-canvas.addEventListener('mouseup', function () {
-    mouse.click = false;
-})
+
 // Character
 var theHero = new Image();
 theHero.src = '455-Other03.png';
@@ -37,13 +35,12 @@ class Hero {
         this.x = canvas.width;
         this.y = canvas.height;
         this.radius = 25;
-        this.frameX = 0;
-        this.frameY = 0;
+        this.X = 0;
         this.width = 32;
         this.height = 48;
     }
 
-    update() {
+    check() {
         var dx = this.x - mouse.x;
         var dy = this.y - mouse.y;
         if (mouse.x != this.x) {
@@ -55,26 +52,13 @@ class Hero {
     }
 
     draw() {
-        // if (mouse.click) {
-        //     ctx.lineWidth = 0.001;
-        //     ctx.beginPath();
-        //     ctx.moveTo(this.x, this.y);
-        //     ctx.lineTo(mouse.x, mouse.y);
-        //     ctx.stroke();
-        // }
-
-        // ctx.fillStyle = 'black';
-        // ctx.beginPath();
-        // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        // ctx.fill();
-        // ctx.closePath();
 
         if (this.x >= mouse.x) {
-            ctx.drawImage(theHero, this.frameX * this.width, this.height,
+            ctx.drawImage(theHero, this.X * this.width, this.height,
                 this.width, this.height, this.x - 16, this.y - 25, this.width * 1.1,
                 this.height * 1.1);
         } else if (this.x <= mouse.x) {
-            ctx.drawImage(theHero, this.frameX * this.width, this.height * 2,
+            ctx.drawImage(theHero, this.X * this.width, this.height * 2,
                 this.width, this.height, this.x - 16, this.y - 25, this.width * 1.1,
                 this.height * 1.1);
         }//  else if (this.y <= mouse.y) {
@@ -108,7 +92,7 @@ class Npc {
         this.speed = (Math.random() * 5) + 1;
     }
 
-    update() {
+    check() {
         this.y -= this.speed;
         var dx = this.x - player.x;
         var dy = this.y - player.y;
@@ -121,12 +105,12 @@ class Npc {
 }
 
 // Nhân vật NPC
-function handleNpc() {
+function createNpc() {
     if (gameFrame % 150 == 0) {
         NpcArray.push(new Npc());
     }
     for (let i = 0; i < NpcArray.length; i++) {
-        NpcArray[i].update();
+        NpcArray[i].check();
         NpcArray[i].draw(NpcImage);
 
         if (NpcArray[i].y < NpcArray[i].radius * 2) {
@@ -140,12 +124,12 @@ function handleNpc() {
     }
 }
 
-function handleNpc1() {
+function createNpc1() {
     if (gameFrame % 150 == 0) {
         NpcArray1.push(new Npc());
     }
     for (let i = 0; i < NpcArray1.length; i++) {
-        NpcArray1[i].update();
+        NpcArray1[i].check();
         NpcArray1[i].draw(NpcImage1);
 
         if (NpcArray1[i].y < 0 - NpcArray1[i].radius * 2) {
@@ -188,14 +172,14 @@ canvas.addEventListener('click', function (){
 var backgroundstart = new Image();
 backgroundstart.src = 'Wild01-Recovered Peace.png';
 
-function handleBackgroundstart() {
+function createBackgroundstart() {
     ctx.drawImage(backgroundstart, 0, 0, 1018, 767, 0, 0, canvas.width, canvas.height);
 }
 //Background Play
 var backgroundplay = new Image();
 backgroundplay.src = 'Wild01-Recovered.png';
 
-function handleBackgroundplay() {
+function createBackgroundplay() {
     ctx.drawImage(backgroundplay, 0, 0, 1018, 767, 0, 0, canvas.width, canvas.height);
 }
 
@@ -203,20 +187,20 @@ function handleBackgroundplay() {
 var cloud = new Image();
 cloud.src = 'Worldmap20-Day.png';
 
-var BG = {
+var backGround = {
     x1: 0,
     x2: canvas.width,
     y: 0,
     width: canvas.width,
     height: canvas.height - 200
 }
-function handleBackground1() {
-    BG.x1 -= gameSpeed;
-    if (BG.x1 < -BG.width) BG.x1 = BG.width;
-    BG.x2 -= gameSpeed;
-    if (BG.x2 < -BG.width) BG.x2 = BG.width;
-    ctx.drawImage(cloud, BG.x1, BG.y, BG.width, BG.height);
-    ctx.drawImage(cloud, BG.x2, BG.y, BG.width, BG.height);
+function createBackground1() {
+    backGround.x1 -= gameSpeed;
+    if (backGround.x1 < -backGround.width) backGround.x1 = backGround.width;
+    backGround.x2 -= gameSpeed;
+    if (backGround.x2 < -backGround.width) backGround.x2 = backGround.width;
+    ctx.drawImage(cloud, backGround.x1, backGround.y, backGround.width, backGround.height);
+    ctx.drawImage(cloud, backGround.x2, backGround.y, backGround.width, backGround.height);
 }
 
 // Enemies
@@ -230,8 +214,7 @@ class Enemy {
         this.radius = 60;
         this.speed = Math.random() * 2 + 5;
         this.frame = 0;
-        this.frameX = 0;
-        this.frameY = 0;
+        this.X = 0;
         this.width = 96;
         this.height = 96;
     }
@@ -241,11 +224,11 @@ class Enemy {
         // ctx.beginPath();
         // ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         // ctx.fill();
-        ctx.drawImage(enemyImage, this.frameX * this.width, this.height,
+        ctx.drawImage(enemyImage, this.X * this.width, this.height,
             this.width, this.height, this.x - 85, this.y - 85, this.radius * 3, this.radius * 3);
     }
 
-    update() {
+    check() {
         this.x -= this.speed;
         if (this.x < 0 - this.radius * 2) {
             this.x = canvas.width + 200;
@@ -258,9 +241,9 @@ class Enemy {
                 this.frame = 0;
             }
             if (this.frame == 3 || this.frame == 7 || this.frame == 11) {
-                this.frameX = 0;
+                this.X = 0;
             } else {
-                this.frameX++;
+                this.X++;
             }
         }
         // Tính va chạm với người chơi
@@ -268,32 +251,32 @@ class Enemy {
         var dy = this.y - player.y;
         var distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < this.radius + player.radius) {
-            handleGameOver();
+            createGameOver();
         }
     }
 }
 
 // Khởi tạo enemy1
 var dragon1 = new Enemy();
-function handleEnemies1() {
+function createEnemies1() {
     dragon1.draw();
-    dragon1.update();
+    dragon1.check();
 }
 // Khởi tạo enemy2
 var dragon2 = new Enemy();
-function handleEnemies2() {
+function createEnemies2() {
     dragon2.draw();
-    dragon2.update();
+    dragon2.check();
 }
 // Khởi tạo enemy3
 var dragon3 = new Enemy();
-function handleEnemies3() {
+function createEnemies3() {
     dragon3.draw();
-    dragon3.update();
+    dragon3.check();
 }
 
 // Game Over
-function handleGameOver() {
+function createGameOver() {
     ctx.fillStyle = 'red';
     ctx.fillText('GAME OVER', 350, 350);
     gameOver = true;
@@ -305,27 +288,27 @@ function handleGameOver() {
 function animate() {
     soundNpc5.play();
     if (game == 'ready'){
-        handleBackgroundstart();
+        createBackgroundstart();
     } else if (game == 'play'){
         soundNpc5.pause();
         soundNpc4.play();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        handleNpc();
-        handleNpc1();
-        player.update();
+        createNpc();
+        createNpc1();
+        player.check();
         player.draw();
-        handleBackgroundplay();
-        handleBackground1()
+        createBackgroundplay();
+        createBackground1()
 
-        handleEnemies1();
+        createEnemies1();
         if (score >= 10) {
-            handleEnemies1();
-            handleEnemies2();
+            createEnemies1();
+            createEnemies2();
         }
         if (score >= 30) {
-            handleEnemies1();
-            handleEnemies2();
-            handleEnemies3();
+            createEnemies1();
+            createEnemies2();
+            createEnemies3();
         }
         ctx.fillStyle = 'red';
         ctx.fillText('Score: ' + score, 30, 40);
