@@ -191,9 +191,9 @@ soundNpc2.src = '004-Treasure.ogg';
 var soundNpc3 = document.createElement('audio');
 soundNpc3.src = '002-Defeat.ogg';
 var soundNpc4 = document.createElement('audio');
-soundNpc4.src = "Protect_Overdrive.mp3";
+soundNpc4.src = "Protect.mp3";
 var soundNpc5 = document.createElement('audio');
-soundNpc5.src = "Hills_of_Promising_Adventures.ogg";
+soundNpc5.src = "Hills.ogg";
 
 
 // Start game
@@ -340,6 +340,7 @@ function animate() {
         player.draw();
         handleBackgroundplay();
         handleBackground1()
+
         handleEnemies1();
         if (score >= 10) {
             handleEnemies1();
