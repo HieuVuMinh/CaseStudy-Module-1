@@ -18,7 +18,7 @@ let canvasPosition = canvas.getBoundingClientRect();
 var mouse = {
     x: 0,
     y: 0,
-    click: false
+    click: false,
 }
 canvas.addEventListener('mousedown', function (event) {
     mouse.click = true;
@@ -315,7 +315,11 @@ function animate() {
         gameFrame++;
 
     }
-    if (!gameOver) requestAnimationFrame(animate);
+
+    if (!gameOver){
+        requestAnimationFrame(animate);
+    }
+
 }
 
 animate()
