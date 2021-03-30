@@ -41,13 +41,13 @@ class Hero {
     }
 
     check() {
-        var dx = this.x - mouse.x;
-        var dy = this.y - mouse.y;
+        var distanceX = this.x - mouse.x;
+        var distanceY = this.y - mouse.y;
         if (mouse.x != this.x) {
-            this.x -= dx / 5;
+            this.x -= distanceX / 5;
         }
         if (mouse.y != this.y) {
-            this.y -= dy / 5;
+            this.y -= distanceY / 5;
         }
     }
 
@@ -94,9 +94,9 @@ class Npc {
 
     check() {
         this.y -= this.speed;
-        var dx = this.x - player.x;
-        var dy = this.y - player.y;
-        this.distance = Math.sqrt(dx * dx + dy * dy);
+        var distanceX = this.x - player.x;
+        var distanceY = this.y - player.y;
+        this.distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
     }
 
     draw(image) {
@@ -247,9 +247,9 @@ class Enemy {
             }
         }
         // Tính va chạm với người chơi
-        var dx = this.x - player.x;
-        var dy = this.y - player.y;
-        var distance = Math.sqrt(dx * dx + dy * dy);
+        var distanceX = this.x - player.x;
+        var distanceY = this.y - player.y;
+        var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
         if (distance < this.radius + player.radius) {
             createGameOver();
         }
